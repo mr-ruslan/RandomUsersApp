@@ -4,10 +4,14 @@ import dagger.Module
 import dagger.Provides
 import ru.nsu.morozov.randomusers.data.remote.repository.RandomUsersRepository
 import ru.nsu.morozov.randomusers.data.remote.repository.RandomUsersRepositoryImpl
+import javax.inject.Singleton
 
 @Module
 class RemoteModule {
 
+    @Singleton
     @Provides
-    fun provideRandomUsersRepository(impl: RandomUsersRepositoryImpl): RandomUsersRepository = impl
+    fun provideRandomUsersRepository(): RandomUsersRepository = RandomUsersRepositoryImpl()
+
+
 }

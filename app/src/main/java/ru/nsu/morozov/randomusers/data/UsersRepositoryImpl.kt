@@ -22,7 +22,12 @@ class UsersRepositoryImpl @Inject constructor(
                 })
             .map { converter.local2domain(it) }
 
-    override suspend fun getLastUsers(): List<User> =
-        savedUsersRepository.getSavedUsers().map { converter.local2domain(it) }
+    override suspend fun getLastUsers(): List<User> {
+        val result = savedUsersRepository.getSavedUsers()
+        if (result.isEmpty()){
+            return getNewUsers(10)
+        }
+        return result.map { converter.local2domain(it) }
+    }
 
 }

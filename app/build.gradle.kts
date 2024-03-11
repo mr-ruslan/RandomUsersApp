@@ -35,6 +35,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+
+    }
 }
 
 dependencies {
@@ -46,6 +50,12 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+
+    // Lifecycle
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
 
     // Navigation
     val nav_version = "2.7.6"
@@ -80,5 +90,8 @@ dependencies {
     // Dagger
     implementation("com.google.dagger:dagger:$dagger_version")
     kapt("com.google.dagger:dagger-compiler:$dagger_version")
+    implementation("com.google.dagger:dagger-android:$dagger_version")
+    kapt("com.google.dagger:dagger-android-processor:$dagger_version")
+    implementation("com.google.dagger:dagger-android-support:$dagger_version")
 
 }

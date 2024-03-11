@@ -3,27 +3,33 @@ package ru.nsu.morozov.randomusers.di
 import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
-import ru.nsu.morozov.randomusers.MainActivity
-import ru.nsu.morozov.randomusers.data.local.UsersDatabase
+import dagger.android.AndroidInjectionModule
+import ru.nsu.morozov.randomusers.presentation.app.RandomUsersApplication
+import javax.inject.Singleton
 
+@Singleton
 @Component(
-	modules = [
-		RemoteModule::class,
-		DomainModule::class,
-		LocalModule::class,
-		DataModule::class,
-	]
+    modules = [
+        AndroidInjectionModule::class,
+        DomainModule::class,
+        DataModule::class,
+        RemoteModule::class,
+        LocalModule::class,
+        FragmentModule::class,
+        ContextModule::class,
+        ViewModelModule::class
+
+    ]
 )
 interface AppComponent {
 
-	fun inject(activity: MainActivity)
+    fun inject(application: RandomUsersApplication)
 
-	@Component.Factory
-	interface ApplicationComponentFactory {
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        fun application(application: Application): Builder
 
-		fun create(
-			@BindsInstance application: Application,
-			@BindsInstance userDb: UsersDatabase,
-		): AppComponent
-	}
+        fun build(): AppComponent
+    }
 }

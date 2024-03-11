@@ -4,7 +4,6 @@ import android.app.Application
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import ru.nsu.morozov.randomusers.data.local.UsersDatabase
 import ru.nsu.morozov.randomusers.di.DaggerAppComponent
 import javax.inject.Inject
 

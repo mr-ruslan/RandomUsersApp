@@ -35,7 +35,7 @@ class MainViewModel @Inject constructor(
 
     fun reloadData() {
         viewModelScope.launch {
-            var previousUsers: List<User> = _state.value.let {
+            val previousUsers: List<User> = _state.value.let {
                 if (it is ListState.Content) it.items else emptyList()
             }
 

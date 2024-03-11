@@ -76,4 +76,9 @@ dependencies {
     // optional - Paging 3 Integration
     implementation("androidx.room:room-paging:$room_version")
 
+    val dagger_version = "2.51"
+    // Dagger
+    implementation("com.google.dagger:dagger:$dagger_version")
+    kapt("com.google.dagger:dagger-compiler:$dagger_version")
+
 }

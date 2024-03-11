@@ -5,8 +5,9 @@ import ru.nsu.morozov.randomusers.data.tools.UserConverter
 import ru.nsu.morozov.randomusers.data.remote.repository.RandomUsersRepository
 import ru.nsu.morozov.randomusers.domain.entity.User
 import ru.nsu.morozov.randomusers.domain.repository.UsersRepository
+import javax.inject.Inject
 
-class UsersRepositoryImpl(
+class UsersRepositoryImpl @Inject constructor(
     private val randomUsersRepository: RandomUsersRepository,
     private val savedUsersRepository: SavedUsersRepository
 ) :

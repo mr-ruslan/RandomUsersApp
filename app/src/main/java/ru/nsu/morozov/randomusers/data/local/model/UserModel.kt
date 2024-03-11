@@ -5,8 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "users")
 data class UserModel(
-    @PrimaryKey
-    val id: Long,
     val gender: String,
     val name: String,
     val email: String,
@@ -14,3 +12,7 @@ data class UserModel(
     val cell: String,
     val age: Int,
 )
+{
+    @PrimaryKey(autoGenerate = true)
+    var id: Long? = null
+}

@@ -10,7 +10,10 @@ import ru.nsu.morozov.randomusers.data.local.model.UserModel
 interface UsersDao {
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	fun addUser(user: UserModel)
+	fun addUser(user: UserModel) : Long
+
+	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	fun addUsers(users: List<UserModel>) : List<Long>
 
 	@Query("DELETE from users WHERE id = :userId")
 	fun deleteUser(userId: Long)

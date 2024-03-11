@@ -19,11 +19,22 @@ class UserConverter {
     fun local2domain(from: LocalModel): User =
         with(from) {
             User(
-                id = id,
+                id = id ?: 0,
                 name = name,
                 phone = phone,
                 age = age,
                 email = email
+            )
+        }
+    fun remote2local(from: RemoteModel): LocalModel =
+        with(from) {
+            LocalModel(
+                name = name.title + name.first + name.last,
+                gender = gender,
+                age = birthday.age,
+                email = email,
+                phone = phone,
+                cell = cell,
             )
         }
 }

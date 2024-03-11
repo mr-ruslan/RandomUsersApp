@@ -14,7 +14,12 @@ class UsersRepositoryImpl(
 
     private val converter = UserConverter()
     override suspend fun getNewUsers(count: Long): List<User> =
-        randomUsersRepository.getRandomUsers(count).map { converter.remote2domain(it) }
+        savedUsersRepository
+            .saveUsers(
+                randomUsersRepository.getRandomUsers(count).map {
+                    converter.remote2local(it)
+                })
+            .map { converter.local2domain(it) }
 
     override suspend fun getLastUsers(): List<User> =
         savedUsersRepository.getSavedUsers().map { converter.local2domain(it) }

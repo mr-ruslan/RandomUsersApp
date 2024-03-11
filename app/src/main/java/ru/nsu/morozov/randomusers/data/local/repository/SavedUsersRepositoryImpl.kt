@@ -8,8 +8,13 @@ class SavedUsersRepositoryImpl(private val usersDao: UsersDao) : SavedUsersRepos
     override suspend fun getSavedUsers(): List<UserModel> =
         usersDao.getUsers()
 
-    override suspend fun saveUsers(users: List<UserModel>) {
-        users.forEach { usersDao.addUser(it) }
+    override suspend fun saveUsers(users: List<UserModel>) : List<UserModel> {
+        var ids = usersDao.addUsers(users)
+        return users.mapIndexed { i, entity ->
+            val newEntity = entity.copy()
+            newEntity.id = ids[i]
+            newEntity
+        }
     }
 
 }

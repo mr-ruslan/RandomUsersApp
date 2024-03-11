@@ -10,7 +10,7 @@ import ru.nsu.morozov.randomusers.domain.entity.User
 
 class UsersListAdapter(
     private var onMore: (User) -> Unit,
-) : ListAdapter<User, UsersListAdapter.ListViewHolder>(FilmDiffCallback()) {
+) : ListAdapter<User, UsersListAdapter.ListViewHolder>(UserDiffCallback()) {
 
     class ListViewHolder(
         private val binding: UserCardBinding,
@@ -36,7 +36,7 @@ class UsersListAdapter(
     }
 }
 
-class FilmDiffCallback : DiffUtil.ItemCallback<User>() {
+class UserDiffCallback : DiffUtil.ItemCallback<User>() {
     override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
         return oldItem.id == newItem.id
     }

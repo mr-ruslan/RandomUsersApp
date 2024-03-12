@@ -20,9 +20,6 @@
         android:name="ru.nsu.morozov.randomusers.presentation.ui.UserInfoFragment"
         android:label=""
         tools:layout="@layout/user_info_fragment">
-        <argument
-            android:name="user_id"
-            app:argType="long"/>
     </fragment>
 
 </navigation>

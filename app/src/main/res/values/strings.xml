@@ -13,4 +13,5 @@
     <string name="cell_template">Cell: %1$s</string>
     <string name="email_template">Email: %1$s</string>
     <string name="born_template">Born: %1$s</string>
+    <string name="reload_error_text">Failed to load users. Please, check the internet connection and try again</string>
 </resources>

@@ -63,8 +63,7 @@ class UsersListFragment : Fragment() {
                 ListState.Loading -> showProgress()
                 is ListState.Content -> showContent(state.items)
                 is ListState.Error -> {
-                    showError(state.msg)
-                    showContent(state.items)
+                    showError(state.msg, state.items)
                 }
             }
 
@@ -81,7 +80,7 @@ class UsersListFragment : Fragment() {
 
     private fun showProgress() {
         with(binding) {
-            errorContent.isVisible = false
+            errorText.isVisible = false
             recyclerView.isVisible = false
             progressBar.isVisible = true
             swipeRefreshLayout.isRefreshing = false
@@ -91,7 +90,7 @@ class UsersListFragment : Fragment() {
     private fun showContent(users: List<User>) {
         with(binding) {
             progressBar.isVisible = false
-            errorContent.isVisible = false
+            errorText.isVisible = false
             recyclerView.isVisible = true
             swipeRefreshLayout.isRefreshing = false
 
@@ -99,16 +98,19 @@ class UsersListFragment : Fragment() {
         }
     }
 
-    private fun showError(message: String) {
+    private fun showError(message: String, users: List<User>) {
         with(binding) {
             progressBar.isVisible = false
-            recyclerView.isVisible = false
-            errorContent.isVisible = true
+            errorText.isVisible = true
             swipeRefreshLayout.isRefreshing = false
 
-            errorText.text = message
-            errorButton.setOnClickListener {
-                viewModel.loadData()
+            errorText.text = getString(R.string.reload_error_text)
+
+            if (users.isEmpty()) {
+                recyclerView.isVisible = false
+            } else {
+                recyclerView.isVisible = true
+                adapter.submitList(users)
             }
         }
     }

@@ -41,7 +41,8 @@ class MainViewModel @Inject constructor(
     fun reloadData() {
         viewModelScope.launch {
             val previousUsers: List<User> = _listState.value.let {
-                if (it is ListState.Content) it.items else emptyList()
+                if (it is ListState.Content) it.items else if (it is ListState.Error) it.items else emptyList()
+
             }
 
             _listState.value = ListState.Loading
@@ -55,7 +56,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun setSelectedUser(user: User){
+    fun setSelectedUser(user: User) {
         _userState.value = SelectedUserState.Content(user)
     }
 

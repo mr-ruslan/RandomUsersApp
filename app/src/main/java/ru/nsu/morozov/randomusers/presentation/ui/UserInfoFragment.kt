@@ -2,8 +2,13 @@ package ru.nsu.morozov.randomusers.presentation.ui
 
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -87,9 +92,10 @@ class UserInfoFragment : Fragment() {
             userCity.text = getString(R.string.city_template, user.city)
             userAddress.text = getString(R.string.address_template, user.street, user.house)
 
-            userPhone.text = getString(R.string.phone_template, user.phone)
-            userCell.text = getString(R.string.cell_template, user.cell)
-            userEmail.text = getString(R.string.email_template, user.email)
+            userPhone.text = makeLink(getString(R.string.phone_template, user.phone))
+            userCell.text = makeLink(getString(R.string.cell_template, user.cell))
+            userEmail.text = makeLink(getString(R.string.email_template, user.email))
+
 
             Glide.with(userImage.context)
                 .load(user.image)
@@ -109,4 +115,34 @@ class UserInfoFragment : Fragment() {
                 .into(userImage)
         }
     }
+
+    private fun makeLink(
+        src: String,
+        scale: Float = 1.1f,
+        separator: String = ": "
+    ): SpannableString {
+        val spannableString = SpannableString(src)
+        val start = src.indexOf(separator) + separator.length
+        val end = src.length
+        spannableString.setSpan(
+            StyleSpan(Typeface.BOLD),
+            start,
+            end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        spannableString.setSpan(
+            RelativeSizeSpan(scale),
+            start,
+            end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        spannableString.setSpan(
+            UnderlineSpan(),
+            start,
+            end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        return spannableString
+    }
+
 }

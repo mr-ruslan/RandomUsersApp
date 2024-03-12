@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TitleText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#0D2F24</item>
+    </style>
+
+    <style name="SubTitleText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#0D2F24</item>
+    </style>
+    <style name="SubTitleTextBold">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#0D2F24</item>
+    </style>
+
+    <style name="ExtraText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#1B4034</item>
+    </style>
+
+
+</resources>

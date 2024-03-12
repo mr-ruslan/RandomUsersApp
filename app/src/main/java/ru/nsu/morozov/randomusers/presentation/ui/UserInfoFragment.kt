@@ -1,8 +1,10 @@
 package ru.nsu.morozov.randomusers.presentation.ui
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -96,6 +98,29 @@ class UserInfoFragment : Fragment() {
             userCell.text = makeLink(getString(R.string.cell_template, user.cell))
             userEmail.text = makeLink(getString(R.string.email_template, user.email))
 
+            userPhone.setOnClickListener {
+                runPhone(user.phone)
+            }
+            userCell.setOnClickListener {
+                runPhone(user.cell)
+            }
+            userEmail.setOnClickListener {
+                runEmail(user.email)
+            }
+            userLocation.setOnClickListener {
+                runMap(
+                    user.latitude.toString(),
+                    user.longitude.toString(),
+                    getString(
+                        R.string.full_address_template,
+                        user.country,
+                        user.state,
+                        user.city,
+                        user.street,
+                        user.house
+                    )
+                )
+            }
 
             Glide.with(userImage.context)
                 .load(user.image)
@@ -145,4 +170,30 @@ class UserInfoFragment : Fragment() {
         return spannableString
     }
 
+    private fun runPhone(number: String) {
+        startActivity(
+            Intent(
+                Intent.ACTION_DIAL,
+                Uri.parse("tel:${number}")
+            )
+        )
+    }
+
+    private fun runEmail(email: String) {
+        startActivity(
+            Intent(
+                Intent.ACTION_SENDTO,
+                Uri.fromParts("mailto", email, null)
+            )
+        )
+    }
+
+    private fun runMap(latitude: String, longitude: String, label: String) {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("geo:0,0?q=${latitude},${longitude}(${label})")
+            )
+        )
+    }
 }

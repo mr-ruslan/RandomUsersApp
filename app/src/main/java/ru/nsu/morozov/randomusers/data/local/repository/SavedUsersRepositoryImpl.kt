@@ -11,7 +11,17 @@ class SavedUsersRepositoryImpl @Inject constructor(private val usersDao: UsersDa
         usersDao.getUsers()
 
     override suspend fun saveUsers(users: List<UserModel>): List<UserModel> {
-        var ids = usersDao.addUsers(users)
+        val ids = usersDao.addUsers(users)
+        return users.mapIndexed { i, entity ->
+            val newEntity = entity.copy()
+            newEntity.id = ids[i]
+            newEntity
+        }
+    }
+
+    override suspend fun replaceUsers(users: List<UserModel>): List<UserModel> {
+        usersDao.deleteUsers()
+        val ids = usersDao.addUsers(users)
         return users.mapIndexed { i, entity ->
             val newEntity = entity.copy()
             newEntity.id = ids[i]

@@ -16,7 +16,7 @@ class UsersRepositoryImpl @Inject constructor(
     private val converter = UserConverter()
     override suspend fun getNewUsers(count: Long): List<User> =
         savedUsersRepository
-            .saveUsers(
+            .replaceUsers(
                 randomUsersRepository.getRandomUsers(count).map {
                     converter.remote2local(it)
                 })

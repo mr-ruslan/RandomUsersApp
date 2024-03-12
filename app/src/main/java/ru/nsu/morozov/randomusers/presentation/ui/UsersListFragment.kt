@@ -26,7 +26,7 @@ class UsersListFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    lateinit var viewModel : MainViewModel
+    private lateinit var viewModel: MainViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,7 +38,8 @@ class UsersListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(requireActivity(), viewModelFactory)[MainViewModel::class.java]
+        viewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[MainViewModel::class.java]
         _binding = UsersListFragmentBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -68,6 +69,12 @@ class UsersListFragment : Fragment() {
             }
 
         }
+        with(binding) {
+            swipeRefreshLayout.setOnRefreshListener {
+                viewModel.reloadData()
+            }
+        }
+
 
         viewModel.loadData()
     }
@@ -77,6 +84,7 @@ class UsersListFragment : Fragment() {
             errorContent.isVisible = false
             recyclerView.isVisible = false
             progressBar.isVisible = true
+            swipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -85,6 +93,7 @@ class UsersListFragment : Fragment() {
             progressBar.isVisible = false
             errorContent.isVisible = false
             recyclerView.isVisible = true
+            swipeRefreshLayout.isRefreshing = false
 
             adapter.submitList(users)
         }
@@ -95,6 +104,7 @@ class UsersListFragment : Fragment() {
             progressBar.isVisible = false
             recyclerView.isVisible = false
             errorContent.isVisible = true
+            swipeRefreshLayout.isRefreshing = false
 
             errorText.text = message
             errorButton.setOnClickListener {

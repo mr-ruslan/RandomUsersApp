@@ -9,6 +9,8 @@ data class UserModel(
     @SerializedName("dob") val birthday: Timestamp,
     @SerializedName("phone") val phone: String,
     @SerializedName("cell") val cell: String,
+    @SerializedName("picture") val picture: Picture,
+
 )
 
 data class UserName(
@@ -20,4 +22,9 @@ data class UserName(
 data class Timestamp(
     @SerializedName("date") val date: String,
     @SerializedName("age") val age: Int,
+)
+
+data class Picture(
+    @SerializedName("large") val large: String,
+    @SerializedName("medium") val medium: String
 )

@@ -1,10 +1,16 @@
 package ru.nsu.morozov.randomusers.presentation.ui
 
+import android.content.res.Resources
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import ru.nsu.morozov.randomusers.R
 import ru.nsu.morozov.randomusers.databinding.UserCardBinding
 import ru.nsu.morozov.randomusers.domain.entity.User
 
@@ -20,11 +26,27 @@ class UsersListAdapter(
         fun bind(user: User) {
             with(binding) {
                 userName.text = user.name
-                userAge.text = user.age.toString()
-                userEmail.text = user.email
+                userAddress.text = user.age.toString()
+                userPhone.text = user.phone
                 root.setOnClickListener {
                     onSelect(user)
                 }
+                Glide.with(userImage.context)
+                    .load(user.image)
+                    //.placeholder(R.drawable.loading_placeholder)
+                    //.error(R.drawable.loading_placeholder)
+                    .apply(
+                        RequestOptions.bitmapTransform(
+                            RoundedCorners(
+                                TypedValue.applyDimension(
+                                    TypedValue.COMPLEX_UNIT_DIP,
+                                    12f,
+                                    Resources.getSystem().displayMetrics
+                                ).toInt()
+                            )
+                        )
+                    )
+                    .into(userImage)
             }
         }
     }

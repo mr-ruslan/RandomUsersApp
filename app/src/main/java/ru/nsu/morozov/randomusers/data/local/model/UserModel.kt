@@ -11,6 +11,8 @@ data class UserModel(
     val phone: String,
     val cell: String,
     val age: Int,
+    val imagePreview: String,
+    val image: String,
 )
 {
     @PrimaryKey(autoGenerate = true)

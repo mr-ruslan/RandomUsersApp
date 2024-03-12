@@ -13,7 +13,9 @@ class UserConverter {
                 name = name.title + name.first + name.last,
                 phone = phone,
                 age = birthday.age,
-                email = email
+                email = email,
+                imagePreview = picture.medium,
+                image = picture.large,
             )
         }
     fun local2domain(from: LocalModel): User =
@@ -23,7 +25,9 @@ class UserConverter {
                 name = name,
                 phone = phone,
                 age = age,
-                email = email
+                email = email,
+                imagePreview = imagePreview,
+                image = image,
             )
         }
     fun remote2local(from: RemoteModel): LocalModel =
@@ -35,6 +39,8 @@ class UserConverter {
                 email = email,
                 phone = phone,
                 cell = cell,
+                imagePreview = picture.medium,
+                image = picture.large,
             )
         }
 }

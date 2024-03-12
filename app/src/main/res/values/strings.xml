@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">RandomUsers</string>
     <string name="try_again">Try again</string>
+    <string name="full_name_template">%1$s %2$s %3$s</string>
+    <string name="full_address_template">%1$s, %2$s, %3$s, %4$s, %5$s</string>
+    <string name="gender_template">Gender: %1$s</string>
+    <string name="age_template">Age: %1$s</string>
+    <string name="country_template">Country: %1$s</string>
+    <string name="state_template">State: %1$s</string>
+    <string name="city_template">City: %1$s</string>
+    <string name="address_template">Address: %1$s, %2$s</string>
+    <string name="phone_template">Phone: %1$s</string>
+    <string name="cell_template">Cell: %1$s</string>
+    <string name="email_template">Email: %1$s</string>
+    <string name="born_template">Born: %1$s</string>
 </resources>

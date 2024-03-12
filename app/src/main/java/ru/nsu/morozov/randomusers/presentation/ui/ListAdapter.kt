@@ -1,5 +1,6 @@
 package ru.nsu.morozov.randomusers.presentation.ui
 
+import android.content.Context
 import android.content.res.Resources
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 import ru.nsu.morozov.randomusers.R
 import ru.nsu.morozov.randomusers.databinding.UserCardBinding
 import ru.nsu.morozov.randomusers.domain.entity.User
+import kotlin.coroutines.coroutineContext
 
 class UsersListAdapter(
     private var onSelect: (User) -> Unit,
@@ -21,12 +23,25 @@ class UsersListAdapter(
     class ListViewHolder(
         private val binding: UserCardBinding,
         private val onSelect: (User) -> Unit,
+        private val context: Context
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(user: User) {
             with(binding) {
-                userName.text = user.name
-                userAddress.text = user.age.toString()
+                userName.text =  context.getString(
+                    R.string.full_name_template,
+                    user.nameTitle,
+                    user.firstName,
+                    user.lastName
+                )
+                userAddress.text = context.getString(
+                    R.string.full_address_template,
+                    user.country,
+                    user.state,
+                    user.city,
+                    user.street,
+                    user.house
+                )
                 userPhone.text = user.phone
                 root.setOnClickListener {
                     onSelect(user)
@@ -54,6 +69,7 @@ class UsersListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ListViewHolder(
         UserCardBinding.inflate(LayoutInflater.from(parent.context), parent, false),
         onSelect,
+        parent.context
     )
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
